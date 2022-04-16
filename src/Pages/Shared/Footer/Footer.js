@@ -3,11 +3,12 @@ import './Footer.css';
 
 
 const Footer = () => {
-    const year = '';
+    const today = new Date();
+    const year = today.getFullYear();
 
     return (
      <footer>
-         <p><small>copyright @ ... {year}</small></p>
+         <p className='text-center mt-5 '><small>copyright @ {year} by <b> <a style={{textDecoration: "none" , color: "gray"}} href="https://saklain71.github.io/saklain-blog-repo/">Saklain Mustak</a></b> </small></p>
      </footer>
     );
 };
