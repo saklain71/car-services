@@ -1,18 +1,39 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 import './Register.css'
 
 const Register = () => {
+    
+
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
+
+      
     const navigete = useNavigate();
+
     const navigateLogin = event =>
     navigete('/login');
+    if (user) {
+        navigete('/home');
+      }
 
     const submitRegister = event =>{
         event.preventDefault();
+        const name = (event.target.name.value);
         const email = (event.target.email.value);
         const password = (event.target.password.value);
-        console.log(email, password);
+        createUserWithEmailAndPassword(email,password);
+        console.log(email, password, name);
     }
+
+  
+
     return (
       
         <div className='register-form '>
@@ -20,9 +41,10 @@ const Register = () => {
 
              <form onSubmit={submitRegister}>
                  
-                 <input type="name" name="name" id="" placeholder='your Name' /> <br />
-                 <input type="email" name="email" id="" placeholder='your Email' /> <br />
-                 <input type="password" name="password" id=""  placeholder='Password'/> <br />
+                 <input type="name" name="name" id="" placeholder='your Name' required /> <br />
+                 <input type="email" name="email" id="" placeholder='your Email'  required /> <br />
+                 <input type="password" name="password" id=""  placeholder='Password' required /> <br />
+
                  <input type="submit" value="Register" />
 
              </form>
