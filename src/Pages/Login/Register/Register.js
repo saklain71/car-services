@@ -71,7 +71,7 @@ const Register = () => {
                     value="Register" />
 
             </form>
-            <p className='mt-2 pe-auto'>Already Have an account ? <Link to="/login" className='text-danger pe-auto text-decoration-none' onClick={navigateLogin}>Please Login</Link></p>
+            <p className='mt-2 pe-auto'>Already Have an account ? <Link to="/login" className='text-danger pe-auto text-decoration-none' onClick={navigateLogin}> Please Login</Link></p>
 
             <SocialLogin></SocialLogin>
         </div>
