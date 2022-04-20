@@ -16,6 +16,7 @@ const Register = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth , {sendEmailVerification: true});
+
     const [updateProfile, updating, updateError, displayName] = useUpdateProfile(auth);
 
 
@@ -71,6 +72,7 @@ const Register = () => {
                     value="Register" />
 
             </form>
+
             <p className='mt-2 pe-auto'>Already Have an account ? <Link to="/login" className='text-danger pe-auto text-decoration-none' onClick={navigateLogin}> Please Login</Link></p>
 
             <SocialLogin></SocialLogin>

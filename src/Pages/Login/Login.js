@@ -6,17 +6,20 @@ import auth from '../../firebase.init';
 import Loading from '../Shared/Loading/Loading';
 import SocialLogin from './SocialLogin/SocialLogin';
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
+import PageTitle from '../Shared/PageTitle/PageTitle';
 
 const Login = () => {
 
+   
     const emailRef = useRef('');
     const passwordRef = useRef('');
     const navigate = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
     let errorElement;
+    
+
     const [
         signInWithEmailAndPassword,
         user,
@@ -25,7 +28,7 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-
+    
 
 
     if (user) {
@@ -63,11 +66,11 @@ const Login = () => {
         navigate('/register');
     }
 
-
-
     return (
+        
         <div className='container w-50 mx-auto'>
             <h2 className='text-primary text-center '>Please login</h2>
+            <PageTitle title="Login"></PageTitle>
             <Form onSubmit={handleSubmit} >
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
