@@ -12,6 +12,8 @@ import Footer from './Pages/Shared/Footer/Footer';
 import Header from './Pages/Shared/Header/Header';
 import NotFound from './Pages/Shared/Header/NotFound/NotFound';
 import PageTitle from './Pages/Shared/PageTitle/PageTitle';
+import AddService from './Pages/AddService/AddService';
+import ManageService from './Pages/ManageService/ManageService';
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
             <CheckOut></CheckOut>
           </RequireAuth>
         }></Route>
+        <Route path="/addservice" element={<AddService></AddService>}></Route>
+        <Route path="/manage" element={<ManageService></ManageService>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
 

@@ -31,11 +31,17 @@ const Header = () => {
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                               
                             </NavDropdown>
                         </Nav>
                         <Nav>
                             <Nav.Link as={Link} to="/about">About</Nav.Link>
+                            {
+                                user && <>
+                                <Nav.Link as={Link} to="/addservice">Add New Service</Nav.Link>
+                                <Nav.Link as={Link} to="/manage">Manage Service</Nav.Link>
+                                </>
+                            }
                             {
                                user ? 
                                <button className='btn btn-link text-white text-decoration-none ' onClick={handleSignOut}>Sign Out</button>
