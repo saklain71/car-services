@@ -1,20 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import useServiceDetail from '../../Hook/useServiceDetail';
 
 const ServiceDetails = () => {
     const {serviceId } = useParams();
-    const [service, setService] = useState({});
-    console.log(service);
-
-    useEffect (()=>{
-        const url = `http://localhost:5000/service/${serviceId}`;
-        fetch(url)
-        .then(res =>  res.json())
-        .then(data => setService(data))
-    },[])
-
- 
+    const [service] = useServiceDetail(serviceId);
 
     return (
         <div style={{height:"300px"}} className='w-100 d-flex justify-content-center align-items-center'>
@@ -23,7 +14,7 @@ const ServiceDetails = () => {
             <p>destructuring - {service.name}</p>
            
             <div className='text-center'>
-            <Link to="/checkout"> <button className='bg-primary'> Proceed Check Out</button></Link>
+            <Link to={`/checkout/${serviceId}`}> <button className='bg-primary'> Proceed Check Out</button></Link>
             </div>
          
         </div>
