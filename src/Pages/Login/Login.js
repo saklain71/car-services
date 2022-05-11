@@ -5,20 +5,21 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading/Loading';
 import SocialLogin from './SocialLogin/SocialLogin';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../Shared/PageTitle/PageTitle';
+import axios from 'axios';
 
 const Login = () => {
 
-   
+
     const emailRef = useRef('');
     const passwordRef = useRef('');
     const navigate = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
     let errorElement;
-    
+
 
     const [
         signInWithEmailAndPassword,
@@ -28,11 +29,11 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-    
+
 
 
     if (user) {
-        navigate(from, { replace: true });
+        //  navigate(from, { replace: true });
     }
 
     if (error) {
@@ -40,26 +41,31 @@ const Login = () => {
             <p className='text-danger'>Error : {error?.message} </p>
         </div>
     }
-    if(loading || sending){
+    if (loading || sending) {
         return <Loading></Loading>
     }
 
-    const handleSubmit = event => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        signInWithEmailAndPassword(email, password);
+        await signInWithEmailAndPassword(email, password);
+        const {data}  = await axios.post('http://localhost:5000/login', {email});
+        localStorage.setItem('accessToken', data.accessToken);
+        // console.log(data);
+        navigate(from, { replace: true });
 
     }
-    const resetPassword = async() => {
+
+    const resetPassword = async () => {
         const email = emailRef.current.value;
-       if(email){
-        await sendPasswordResetEmail(email);
-        toast('Sent Email');
-       }
-       else{
-           toast("Enter your email");
-       }
+        if (email) {
+            await sendPasswordResetEmail(email);
+            toast('Sent Email');
+        }
+        else {
+            toast("Enter your email");
+        }
 
     }
     const navigateRegister = event => {
@@ -67,7 +73,7 @@ const Login = () => {
     }
 
     return (
-        
+
         <div className='container w-50 mx-auto'>
             <h2 className='text-primary text-center '>Please login</h2>
             <PageTitle title="Login"></PageTitle>
@@ -93,7 +99,7 @@ const Login = () => {
             </Form>
             {errorElement}
             <SocialLogin></SocialLogin>
-           
+
 
         </div>
     );

@@ -14,11 +14,17 @@ const Order = () => {
             const email = user?.email;
             console.log(email);
             const url = `http://localhost:5000/order?email=${email}`;
-            const {data} = await axios.get(url);
+
+            const {data} = await axios.get(url , {
+                headers : {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                } 
+            });
             setOrders(data);
         }
         getOrders();
     },[user])
+
     return (
         <div>
             <h2>Your orders length : {orders.length}</h2>
