@@ -5,11 +5,11 @@ import auth from '../../../firebase.init';
 import './Register.css'
 import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../../Shared/Loading/Loading';
+import useToken from '../../../Hook/useToken';
 
 const Register = () => {
     const [agree, setAgree] = useState(false);
-
-
+    const [token] = useToken(user);
     const [
         createUserWithEmailAndPassword,
         user,
@@ -18,15 +18,12 @@ const Register = () => {
     ] = useCreateUserWithEmailAndPassword(auth , {sendEmailVerification: true});
 
     const [updateProfile, updating, updateError, displayName] = useUpdateProfile(auth);
-
-
     const navigete = useNavigate();
-
     const navigateLogin = event =>
         navigete('/login');
-
-    if (user) {
-        console.log(user);
+    if (token) {
+        navigete('/home');
+        //console.log(user);
     }
     if(loading || updating){
         return <Loading></Loading>
@@ -36,6 +33,7 @@ const Register = () => {
         const name = (event.target.name.value);
         const email = (event.target.email.value);
         const password = (event.target.password.value);
+        
         //const agree = event.target.terms.checked;
 
         // if (agree) {
@@ -46,7 +44,7 @@ const Register = () => {
           await createUserWithEmailAndPassword(email,password);
           await updateProfile({ displayName : name });
           console.log('Updated profile');
-          navigete('/home');
+         // navigete('/home');
         
     }
 

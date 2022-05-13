@@ -8,7 +8,8 @@ import SocialLogin from './SocialLogin/SocialLogin';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../Shared/PageTitle/PageTitle';
-import axios from 'axios';
+//import axios from 'axios';
+import useToken from '../../Hook/useToken';
 
 const Login = () => {
 
@@ -29,11 +30,10 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-
-
-
-    if (user) {
-        //  navigate(from, { replace: true });
+    const [token] = useToken(user);
+    
+    if (token) {
+          navigate(from, {replace: true});
     }
 
     if (error) {
@@ -50,10 +50,12 @@ const Login = () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         await signInWithEmailAndPassword(email, password);
-        const {data}  = await axios.post('https://guarded-retreat-61183.herokuapp.com/login', {email});
-        localStorage.setItem('accessToken', data.accessToken);
+
+        // const {data}  = await axios.post('https://guarded-retreat-61183.herokuapp.com/login', {email});
+        // localStorage.setItem('accessToken', data.accessToken);
+
         // console.log(data);
-        navigate(from, { replace: true });
+        //navigate(from, { replace: true });
 
     }
 

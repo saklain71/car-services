@@ -16,7 +16,8 @@ const Order = () => {
         const getOrders = async () => {
             const email = user?.email;
             console.log(email);
-            const url = `https://guarded-retreat-61183.herokuapp.com/order?email=${email}`;
+            const url = `https://guarded-retreat-61 
+            183.herokuapp.com/order?email=${email}`;
             try {
                 const { data } = await axiosPrivate.get(url);
                 setOrders(data);
@@ -34,8 +35,14 @@ const Order = () => {
     }, [user])
 
     return (
-        <div>
+        <div className='w-50 mx-auto'>
             <h2>Your orders length : {orders.length}</h2>
+
+            {
+                orders.map(orders => <li key={orders._id}>
+                    <p>{orders.email} : {orders.service}</p>
+                </li>)
+            }
         </div>
     );
 };

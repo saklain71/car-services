@@ -5,6 +5,7 @@ import github from '../../../images/github.png'
 import auth from '../../../firebase.init';
 import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useToken from '../../../Hook/useToken';
 
 const SocialLogin = () => {
 
@@ -12,6 +13,9 @@ const SocialLogin = () => {
     const [signInWithGithub, user1, loading1, error1] = useSignInWithGithub(auth);
     const navigate = useNavigate();
     const location = useLocation();
+
+    const [token] = useToken(user || user1);
+
 
     let from = location.state?.from?.pathname || "/";
     
@@ -21,7 +25,7 @@ const SocialLogin = () => {
            <p className='text-danger'>Error : {error?.message} {error1?.message}</p>
        </div>
       }
-    if (user  || user1) {
+    if (token) {
        navigate(from, {replace: true});
       }
  
