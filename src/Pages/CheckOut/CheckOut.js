@@ -20,7 +20,7 @@ const CheckOut = () => {
             addrerss: event.target.value,
             phone: event.target.value
         }
-        axios.post('http://localhost:5000/order', order)
+        axios.post('https://guarded-retreat-61183.herokuapp.com/order', order)
         .then(response => {
             const {data} = response;
             if(data.insertedId){
