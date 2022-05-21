@@ -20,6 +20,7 @@ const Order = () => {
             try {
                 const { data } = await axiosPrivate.get(url);
                 setOrders(data);
+                console.log(data);
             }
             catch (error) {
                 console.log(error.message);

@@ -11,7 +11,7 @@ const ManageService = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log(data)
                 const remaining = service.filter(services => service._id !== id);
                 setService(remaining);
             })
